@@ -14,7 +14,7 @@ export interface Song {
 
 export interface SongCard {
     // basic song card view 
-    song: Song;
+    song: Song; 
     rank: SongAnalytics["rank"];
     weeklyGrowthPercent: SongAnalytics["weeklyGrowthPercent"];
     dailyListens: SongAnalytics["dailyListens"];
