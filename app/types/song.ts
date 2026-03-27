@@ -4,12 +4,12 @@ import { SongAnalytics } from "./analytics";
 
 export interface Song {
     // core metadata
-    id: number;
-    name: string;
-    artist: string; // join from artist via track_artist
-    albumName: string | null; // not yet in schema
+    id: number;   
+    name: string; 
+    artist: string; // join from artist via track_artist 
+    albumName: string | null; // not yet in schema 
     imageUrl: string | null;  // not yet in schema 
-    releaseDate: string | null;
+    releaseDate: string | null; 
 }
 
 export interface SongCard {
