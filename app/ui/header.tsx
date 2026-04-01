@@ -9,7 +9,9 @@ interface PageLinkProps {
 
 const PageLink = ({ href, displayText }: PageLinkProps) => {
     return (
-        <Link className="text-xl font-bold hover:scale-110 transition-all duration-75" href={href}>{displayText}</Link>
+        <Link className="text-xl font-bold hover:scale-110 transition-all duration-75" href={href}>
+            {displayText}
+        </Link>
     )
 }
 
@@ -17,17 +19,31 @@ export const Header = () => {
     return (
         <>
             <div className="w-screen px-18 py-4 bg-white">
-                <div className="w-full flex items-center">
-                    <div className="w-screen text-3xl">
-                        <Link href="/">
-                            <Image className="hover:scale-110 transition-all duration-75" src={Logo} alt="Track Tracker Logo" width={64} height={64} />
+                <div className="w-full flex items-center justify-between">
+
+                    {/* Logo + Text */}
+                    <div className="flex items-center gap-3">
+                        <Link href="/" className="flex items-center gap-3">
+                            <Image
+                                className="hover:scale-110 transition-all duration-75"
+                                src={Logo}
+                                alt="Track Tracker Logo"
+                                width={64}
+                                height={64}
+                            />
+                            <span className="text-4xl font-extrabold text-black">
+                                Track Tracker
+                            </span>
                         </Link>
                     </div>
-                    <div className="w-fit text-black flex gap-x-12">
+
+                    {/* Navigation */}
+                    <div className="text-black flex gap-x-12">
                         <PageLink href="/" displayText="Home" />
-                        <PageLink href="About" displayText="About" />
-                        <PageLink href="Contact" displayText="Contact" />
+                        <PageLink href="/about" displayText="About" />
+                        <PageLink href="/contact" displayText="Contact" />
                     </div>
+
                 </div>
             </div>
         </>
