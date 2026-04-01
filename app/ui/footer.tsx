@@ -22,7 +22,7 @@ export const Footer = () => {
                 {/* Right (GitHub Icon) */}
                 <div>
                     <Link
-                        href="https://github.com/your-username/your-repo"
+                        href="https://github.com/colinpmaloney/Track-Tracker-Frontend/"
                         target="_blank"
                     >
                         <Image
