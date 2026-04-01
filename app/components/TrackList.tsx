@@ -1,12 +1,13 @@
 // TrackList component: contains list of SongCards
 
 import { SongCard } from "../types/song"
+import TrackCard from "./TrackCard"
 
 export default function TrackList({ songs }: { songs:SongCard[] }) {
     return (
         <div>
             {songs.map((song) => (
-                <div key={song.song.id}> placeholder </div>
+                <TrackCard key={song.song.id} songCard={song} />
             ))}
         </div>
     )
