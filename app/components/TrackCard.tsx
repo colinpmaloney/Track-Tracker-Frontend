@@ -11,7 +11,7 @@ function MusicNoteIcon() {
     return (
         <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
             <path d="M9 4v9.38A3.5 3.5 0 1 0 11 17V9l8-2V4H9zm1 13a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm8-8-6 1.5V6l6-1.5V9z" />
-        </svg>
+        </svg >
     )
 }
 
