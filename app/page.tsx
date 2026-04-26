@@ -104,7 +104,7 @@ export default async function Home() {
 
             {/* Top 3 */}
             <section className="mb-12">
-                <h2 className="text-gray-900 mb-1">Today&apos;s top 3</h2>
+                <h2 className="text-foreground mb-4">Today&apos;s top 3</h2>
                 <p className="text-gray-500 text-sm mb-6">Ranked by weekly stream growth.</p>
                 {top3.length === 0 ? (
                     <p className="text-gray-400 text-sm text-center py-16">
@@ -121,7 +121,7 @@ export default async function Home() {
 
             {/* Stats */}
             <section className="mb-12">
-                <h2 className="text-gray-900 mb-1">By the numbers</h2>
+                <h2 className="text-foreground mb-4">By the numbers</h2>
                 <p className="text-gray-500 text-sm mb-6">What&apos;s in the database right now.</p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <StatCard
