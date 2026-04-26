@@ -12,6 +12,12 @@ interface TrackListItem {
     rank: number;
 }
 
+export interface TrackStats {
+    trackCount: number;
+    totalStreams: number;
+    topGrowthPercent: number | null;
+}
+
 function mapToSongCard(item: TrackListItem): SongCard {
     return {
         song: {
@@ -42,3 +48,28 @@ export async function getTracks(q?: string, limit = 50): Promise<SongCard[]> {
     const data = await res.json();
     return (data.tracks as TrackListItem[]).map(mapToSongCard);
 }
+
+export async function getStats(): Promise<TrackStats> {
+    const res = await fetch(`${API_BASE}/tracks?limit=100`, {
+        next: { revalidate: 60 },
+    });
+
+    if (!res.ok) throw new Error(`API error: ${res.status}`);
+
+    const data = await res.json();
+    const items: TrackListItem[] = data.tracks;
+
+    const totalStreams = items.reduce((sum, t) => sum + (t.total_streams ?? 0), 0);
+    const topGrowth = items.reduce<number | null>((max, t) => {
+        const g = t.weekly_growth_percent;
+        if (g === null) return max;
+        return max === null || g > max ? g : max;
+    }, null);
+
+    return {
+        trackCount: data.count as number,
+        totalStreams,
+        topGrowthPercent: topGrowth,
+    };
+}
+
