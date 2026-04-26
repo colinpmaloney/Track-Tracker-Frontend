@@ -6,6 +6,7 @@ interface TrackListItem {
     track_id: number;
     track_name: string | null;
     artist_name: string | null;
+    image_url: string | null;
     total_streams: number | null;
     daily_streams_change: number | null;
     weekly_growth_percent: number | null;
@@ -25,7 +26,7 @@ function mapToSongCard(item: TrackListItem): SongCard {
             name: item.track_name ?? "Unknown",
             artist: item.artist_name ?? "Unknown",
             albumName: null,
-            imageUrl: null,
+            imageUrl: item.image_url ?? null,
             releaseDate: null,
         },
         rank: item.rank,
@@ -72,4 +73,3 @@ export async function getStats(): Promise<TrackStats> {
         topGrowthPercent: topGrowth,
     };
 }
-
