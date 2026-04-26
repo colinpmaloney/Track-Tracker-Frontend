@@ -145,7 +145,7 @@ export default function About() {
                         Head back to the charts and see which tracks are trending right now.
                     </p>
                     <Link
-                        href="/"
+                        href="/charts"
                         className="inline-block bg-white text-green-600 font-bold px-6 py-3 rounded-xl hover:scale-105 transition-all duration-75"
                     >
                         See the top charts
