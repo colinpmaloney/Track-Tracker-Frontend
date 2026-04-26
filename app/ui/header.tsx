@@ -26,8 +26,8 @@ export const Header = () => {
                     </div>
                     <div className="w-fit text-black flex gap-x-12">
                         <PageLink href="/" displayText="Home" />
-                        <PageLink href="about" displayText="About" />
-                        <PageLink href="contact" displayText="Contact" />
+                        <PageLink href="/charts" displayText="Charts" />
+                        <PageLink href="/about" displayText="About" />
                     </div>
                 </div>
             </div>
