@@ -50,7 +50,7 @@ export default async function Charts({
                     {q ? `No results for "${q}"` : "No tracks found. Make sure the backend is running."}
                 </p>
             ) : (
-                <TrackList songs={songs} />
+                <TrackList songs={songs} columns={3} />
             )}
 
         </main>
