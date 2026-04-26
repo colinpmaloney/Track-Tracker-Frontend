@@ -21,7 +21,7 @@ export default async function Charts({
 
     let songs: SongCard[] = [];
     try {
-        songs = await getTracks(q || undefined, 100);
+        songs = await getTracks(q || undefined, 99);
     } catch {
         // backend unreachable — render empty state
     }
