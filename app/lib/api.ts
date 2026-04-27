@@ -4,7 +4,7 @@
  * without hitting the backend on every request.
  */
 
-import type { SongCard } from "../types";
+import type { SongCard, SongCardDetails, TrendDataPoint } from "../types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
@@ -18,6 +18,31 @@ interface TrackListItem {
     daily_streams_change: number | null;
     weekly_growth_percent: number | null;
     rank: number;
+}
+
+interface GrowthWindow {
+    absolute: number | null;
+    percent: number | null;
+}
+
+interface TrackStatsResponse {
+    track_id: number;
+    track_name: string | null;
+    spotify_id: string | null;
+    snapshot_count: number;
+    latest_streams: number | null;
+    latest_recorded_at: string | null;
+    growth: Record<string, GrowthWindow>;
+}
+
+interface SnapshotPoint {
+    recorded_at: string;
+    streams: number | null;
+}
+
+interface TrackSnapshotsResponse {
+    track_id: number;
+    snapshots: SnapshotPoint[];
 }
 
 /** Aggregated statistics derived from the full track list, used by the dashboard header. */
@@ -39,7 +64,7 @@ function mapToSongCard(item: TrackListItem): SongCard {
             releaseDate: null,
         },
         rank: item.rank,
-        weeklyGrowthPercent: item.weekly_growth_percent ?? 0,
+        weeklyGrowthPercent: item.weekly_growth_percent ?? null,
         dailyListens: item.daily_streams_change ?? 0,
         totalListens: item.total_streams ?? 0,
     };
@@ -89,5 +114,42 @@ export async function getStats(): Promise<TrackStats> {
         trackCount: data.count as number,
         totalStreams,
         topGrowthPercent: topGrowth,
+    };
+}
+
+export async function getTrackDetails(songCard: SongCard): Promise<SongCardDetails> {
+    const id = songCard.song.id;
+
+    const [statsRes, snapshotsRes] = await Promise.all([
+        fetch(`${API_BASE}/tracks/${id}/stats`),
+        fetch(`${API_BASE}/tracks/${id}/snapshots?days=30`),
+    ]);
+
+    const stats: TrackStatsResponse = statsRes.ok ? await statsRes.json() : { growth: {}, latest_recorded_at: null, snapshot_count: 0, latest_streams: null, track_id: id, track_name: null, spotify_id: null };
+    const snapshotsData: TrackSnapshotsResponse = snapshotsRes.ok ? await snapshotsRes.json() : { track_id: id, snapshots: [] };
+
+    const thirtyDayTrend: TrendDataPoint[] = snapshotsData.snapshots
+        .filter(s => s.streams !== null)
+        .map(s => ({
+            date: s.recorded_at.split("T")[0],
+            listens: s.streams as number,
+        }));
+
+    return {
+        songCard,
+        analytics: {
+            id,
+            rank: songCard.rank,
+            dailyListens: songCard.dailyListens,
+            totalListens: songCard.totalListens,
+            weeklyGrowthPercent: stats.growth.week?.percent ?? null,
+            avgDailyGrowthPercent: stats.growth.day?.percent ?? null,
+            monthlyGrowthPercent: stats.growth.month?.percent ?? null,
+            allTimeGrowthPercent: stats.growth.all_time?.percent ?? null,
+            listensPerHour: Math.round(songCard.dailyListens / 24),
+            estimatedMonthlyListens: songCard.dailyListens * 30,
+            thirtyDayTrend,
+            twentyFourHourDistribution: [],
+        },
     };
 }

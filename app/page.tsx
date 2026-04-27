@@ -40,9 +40,17 @@ function FeaturedTrackCard({ track }: { track: SongCard }) {
                 <div className="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-white text-xs font-bold">#{track.rank}</span>
                 </div>
-                <div className="w-9 h-9 bg-green-50 rounded-xl flex items-center justify-center text-green-500 flex-shrink-0">
-                    <MusicNoteIcon />
-                </div>
+                {track.song.imageUrl ? (
+                    <img
+                        src={track.song.imageUrl}
+                        alt={track.song.name}
+                        className="w-9 h-9 rounded-xl object-cover flex-shrink-0"
+                    />
+                ) : (
+                    <div className="w-9 h-9 bg-green-50 rounded-xl flex items-center justify-center text-green-500 flex-shrink-0">
+                        <MusicNoteIcon />
+                    </div>
+                )}
             </div>
             <div>
                 <h3 className="font-bold text-gray-900 text-lg leading-tight">{track.song.name}</h3>

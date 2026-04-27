@@ -20,8 +20,10 @@ export interface SongAnalytics {
     rank: number;
     dailyListens: number;
     totalListens: number;
-    weeklyGrowthPercent: number;
-    avgDailyGrowthPercent: number; 
+    weeklyGrowthPercent: number | null;
+    avgDailyGrowthPercent: number | null;
+    monthlyGrowthPercent: number | null;
+    allTimeGrowthPercent: number | null;
     listensPerHour: number;
     estimatedMonthlyListens: number;
     thirtyDayTrend: TrendDataPoint[]; 

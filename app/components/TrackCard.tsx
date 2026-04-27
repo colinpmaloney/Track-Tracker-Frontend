@@ -44,9 +44,12 @@ function PeopleIcon() {
  * Displays a single ranked track with its key streaming metrics.
  * Falls back to a green music-note placeholder when no album art URL is available.
  */
-export default function TrackCard({ songCard }: { songCard: SongCard }) {
+export default function TrackCard({ songCard, onClick }: { songCard: SongCard; onClick?: () => void }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+        <div
+            className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 cursor-pointer hover:shadow-md transition-shadow"
+            onClick={onClick}
+        >
             <div className="flex items-start gap-4 mb-5">
                 <div className="relative flex-shrink-0">
                     {songCard.song.imageUrl ? (
@@ -74,10 +77,14 @@ export default function TrackCard({ songCard }: { songCard: SongCard }) {
                 </div>
 
                 <div className="text-right flex-shrink-0">
-                    <div className="flex items-center gap-1 text-green-500 justify-end">
-                        <TrendingUpIcon />
-                        <span className="font-bold text-xl">+{songCard.weeklyGrowthPercent}%</span>
-                    </div>
+                    {songCard.weeklyGrowthPercent !== null ? (
+                        <div className="flex items-center gap-1 text-green-500 justify-end">
+                            <TrendingUpIcon />
+                            <span className="font-bold text-xl">+{songCard.weeklyGrowthPercent}%</span>
+                        </div>
+                    ) : (
+                        <span className="font-bold text-xl text-gray-400">—</span>
+                    )}
                     <p className="text-gray-400 text-xs mt-0.5">weekly growth</p>
                 </div>
             </div>
