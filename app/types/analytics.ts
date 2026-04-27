@@ -1,5 +1,7 @@
-// Defines shape of analytics interfaces.
-// Computation handled on backend, these shapes store final results of analysis
+/**
+ * Analytics type definitions.
+ * Computation is handled on the backend; these shapes represent the final results.
+ */
 
 export interface TrendDataPoint {
     // shape for 30 Day Listen Trend line graph

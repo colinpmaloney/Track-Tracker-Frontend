@@ -1,11 +1,13 @@
 
 import Link from "next/link";
 
+/** Props for a single footer navigation link. */
 interface FooterLinkProps {
     href: string;
     displayText: string;
 }
 
+/** Renders a single navigation link styled for the footer. */
 const FooterLink = ({ href, displayText }: FooterLinkProps) => {
     return (
         <Link 
@@ -17,6 +19,7 @@ const FooterLink = ({ href, displayText }: FooterLinkProps) => {
     );
 };
 
+/** Groups a set of footer links under a labeled section heading. */
 const FooterSection = ({ title, links }: { title: string; links: FooterLinkProps[] }) => {
     return (
         <div className="flex flex-col gap-2">
@@ -28,6 +31,7 @@ const FooterSection = ({ title, links }: { title: string; links: FooterLinkProps
     );
 };
 
+/** Site-wide footer with navigation sections, social links, and copyright notice. */
 export const Footer = () => {
     const currentYear = new Date().getFullYear();
 

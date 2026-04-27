@@ -3,6 +3,10 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
+/**
+ * Controlled search input that syncs its value with the URL query param `q`.
+ * Debounces URL updates by 300ms to avoid pushing a history entry on every keystroke.
+ */
 export default function SearchBar({ initialValue = "" }: { initialValue?: string }) {
     const router = useRouter();
     const searchParams = useSearchParams();

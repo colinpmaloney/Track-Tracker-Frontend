@@ -1,7 +1,14 @@
+/**
+ * API client for the Track Tracker backend.
+ * All fetch calls use Next.js ISR (revalidate: 60s) so pages stay fresh
+ * without hitting the backend on every request.
+ */
+
 import type { SongCard } from "../types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
+/** Raw track shape returned by the backend /tracks endpoint. */
 interface TrackListItem {
     track_id: number;
     track_name: string | null;
@@ -13,12 +20,14 @@ interface TrackListItem {
     rank: number;
 }
 
+/** Aggregated statistics derived from the full track list, used by the dashboard header. */
 export interface TrackStats {
     trackCount: number;
     totalStreams: number;
     topGrowthPercent: number | null;
 }
 
+/** Transforms a raw backend TrackListItem into the frontend SongCard display shape. */
 function mapToSongCard(item: TrackListItem): SongCard {
     return {
         song: {
@@ -36,6 +45,11 @@ function mapToSongCard(item: TrackListItem): SongCard {
     };
 }
 
+/**
+ * Fetches the ranked track list, optionally filtered by a search query.
+ * @param q - Search string matched against track/artist name.
+ * @param limit - Maximum number of results (default 50).
+ */
 export async function getTracks(q?: string, limit = 50): Promise<SongCard[]> {
     const params = new URLSearchParams({ limit: String(limit) });
     if (q) params.set("q", q);
@@ -50,6 +64,10 @@ export async function getTracks(q?: string, limit = 50): Promise<SongCard[]> {
     return (data.tracks as TrackListItem[]).map(mapToSongCard);
 }
 
+/**
+ * Computes aggregate dashboard stats (total streams, top weekly growth) by
+ * fetching up to 100 tracks and reducing client-side.
+ */
 export async function getStats(): Promise<TrackStats> {
     const res = await fetch(`${API_BASE}/tracks?limit=100`, {
         next: { revalidate: 60 },

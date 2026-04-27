@@ -1,3 +1,8 @@
+/**
+ * Root layout shared by every page — loads fonts, wraps content in Header/Footer,
+ * and sets the default site metadata.
+ */
+
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";

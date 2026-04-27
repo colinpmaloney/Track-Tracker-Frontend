@@ -1,4 +1,4 @@
-// Defines Song metadata interface and SongCard interfaces
+/** Core song metadata and card display types. */
 
 import { SongAnalytics } from "./analytics";
 

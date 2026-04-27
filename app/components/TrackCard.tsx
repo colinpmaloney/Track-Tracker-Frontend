@@ -1,5 +1,6 @@
 import type { SongCard } from "../types";
 
+/** Abbreviates large listen counts to human-readable form (e.g. 1500000 → "1.5M"). */
 function formatListens(n: number): string {
     if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B`
     if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
@@ -39,6 +40,10 @@ function PeopleIcon() {
     )
 }
 
+/**
+ * Displays a single ranked track with its key streaming metrics.
+ * Falls back to a green music-note placeholder when no album art URL is available.
+ */
 export default function TrackCard({ songCard }: { songCard: SongCard }) {
     return (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">

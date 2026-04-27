@@ -1,4 +1,7 @@
-/* mockTopTen.ts - mock data for each TrackCard in TrackList component */
+/**
+ * Static mock data used during development and testing.
+ * Represents a top-ten track list with realistic stream counts.
+ */
 
 import { SongCard } from "../types/song"
 
