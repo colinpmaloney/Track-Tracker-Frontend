@@ -30,22 +30,48 @@ function Sparkline({ data }: { data: TrendDataPoint[] }) {
     }
 
     const W = 400;
-    const H = 80;
-    const pad = 4;
+    const H = 90;
+    const padL = 52;  // left margin for y-axis labels
+    const padR = 8;
+    const padT = 8;
+    const padB = 24; // bottom margin for x-axis labels
+    const chartW = W - padL - padR;
+    const chartH = H - padT - padB;
 
     const values = data.map(d => d.listens);
     const minV = Math.min(...values);
     const maxV = Math.max(...values);
     const range = maxV - minV || 1;
 
-    const points = data.map((d, i) => {
-        const x = pad + (i / (data.length - 1)) * (W - pad * 2);
-        const y = H - pad - ((d.listens - minV) / range) * (H - pad * 2);
-        return `${x},${y}`;
-    }).join(" ");
+    const toX = (i: number) => padL + (i / (data.length - 1)) * chartW;
+    const toY = (v: number) => padT + chartH - ((v - minV) / range) * chartH;
+
+    const points = data.map((d, i) => `${toX(i)},${toY(d.listens)}`).join(" ");
+
+    // Y-axis: min and max labels
+    const fmtY = (n: number) => n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(0)}K` : String(n);
+
+    // X-axis: first and last date labels (MM/DD)
+    const fmtDate = (iso: string) => { const [, m, d] = iso.split("-"); return `${m}/${d}`; };
+    const firstDate = fmtDate(data[0].date);
+    const lastDate = fmtDate(data[data.length - 1].date);
 
     return (
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="none">
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full">
+            {/* Gridlines */}
+            <line x1={padL} y1={padT} x2={padL} y2={padT + chartH} stroke="#e5e7eb" strokeWidth="1" />
+            <line x1={padL} y1={padT + chartH} x2={padL + chartW} y2={padT + chartH} stroke="#e5e7eb" strokeWidth="1" />
+            <line x1={padL} y1={padT} x2={padL + chartW} y2={padT} stroke="#f3f4f6" strokeWidth="1" strokeDasharray="3 3" />
+
+            {/* Y-axis labels */}
+            <text x={padL - 4} y={padT + 4} textAnchor="end" fontSize="9" fill="#9ca3af">{fmtY(maxV)}</text>
+            <text x={padL - 4} y={padT + chartH} textAnchor="end" fontSize="9" fill="#9ca3af">{fmtY(minV)}</text>
+
+            {/* X-axis labels */}
+            <text x={padL} y={H - 4} textAnchor="middle" fontSize="9" fill="#9ca3af">{firstDate}</text>
+            <text x={padL + chartW} y={H - 4} textAnchor="middle" fontSize="9" fill="#9ca3af">{lastDate}</text>
+
+            {/* Line */}
             <polyline
                 points={points}
                 fill="none"
@@ -54,6 +80,10 @@ function Sparkline({ data }: { data: TrendDataPoint[] }) {
                 strokeLinejoin="round"
                 strokeLinecap="round"
             />
+
+            {/* Endpoint dots */}
+            <circle cx={toX(0)} cy={toY(data[0].listens)} r="2.5" fill="#22c55e" />
+            <circle cx={toX(data.length - 1)} cy={toY(data[data.length - 1].listens)} r="2.5" fill="#22c55e" />
         </svg>
     );
 }

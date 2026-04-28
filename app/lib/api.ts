@@ -103,7 +103,6 @@ export async function getStats(): Promise<TrackStats> {
     const data = await res.json();
     const items: TrackListItem[] = data.tracks;
 
-    const totalStreams = items.reduce((sum, t) => sum + (t.total_streams ?? 0), 0);
     const topGrowth = items.reduce<number | null>((max, t) => {
         const g = t.weekly_growth_percent;
         if (g === null) return max;
@@ -111,8 +110,8 @@ export async function getStats(): Promise<TrackStats> {
     }, null);
 
     return {
-        trackCount: data.count as number,
-        totalStreams,
+        trackCount: data.total as number,
+        totalStreams: data.total_streams as number,
         topGrowthPercent: topGrowth,
     };
 }
@@ -142,7 +141,7 @@ export async function getTrackDetails(songCard: SongCard): Promise<SongCardDetai
             rank: songCard.rank,
             dailyListens: songCard.dailyListens,
             totalListens: songCard.totalListens,
-            weeklyGrowthPercent: stats.growth.week?.percent ?? null,
+            weeklyGrowthPercent: songCard.weeklyGrowthPercent,
             avgDailyGrowthPercent: stats.growth.day?.percent ?? null,
             monthlyGrowthPercent: stats.growth.month?.percent ?? null,
             allTimeGrowthPercent: stats.growth.all_time?.percent ?? null,
