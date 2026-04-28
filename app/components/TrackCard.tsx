@@ -47,7 +47,7 @@ function PeopleIcon() {
 export default function TrackCard({ songCard, onClick }: { songCard: SongCard; onClick?: () => void }) {
     return (
         <div
-            className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 cursor-pointer hover:shadow-md transition-shadow"
+            className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-5 cursor-pointer hover:shadow-md transition-shadow"
             onClick={onClick}
         >
             <div className="flex items-start gap-4 mb-5">
@@ -69,10 +69,10 @@ export default function TrackCard({ songCard, onClick }: { songCard: SongCard; o
                 </div>
 
                 <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-gray-900 text-xl leading-tight">{songCard.song.name}</h3>
-                    <p className="text-gray-500 text-sm mt-0.5">{songCard.song.artist}</p>
+                    <h3 className="font-bold text-gray-900 dark:text-white text-xl leading-tight">{songCard.song.name}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{songCard.song.artist}</p>
                     {songCard.song.albumName && (
-                        <p className="text-gray-400 text-sm">{songCard.song.albumName}</p>
+                        <p className="text-gray-400 dark:text-gray-500 text-sm">{songCard.song.albumName}</p>
                     )}
                 </div>
 
@@ -83,33 +83,33 @@ export default function TrackCard({ songCard, onClick }: { songCard: SongCard; o
                             <span className="font-bold text-xl">+{songCard.weeklyGrowthPercent}%</span>
                         </div>
                     ) : (
-                        <span className="font-bold text-xl text-gray-400">—</span>
+                        <span className="font-bold text-xl text-gray-400 dark:text-gray-500">—</span>
                     )}
-                    <p className="text-gray-400 text-xs mt-0.5">weekly growth</p>
+                    <p className="text-gray-400 dark:text-gray-500 text-xs mt-0.5">weekly growth</p>
                 </div>
             </div>
 
-            <div className="border-t border-gray-100 pt-4">
+            <div className="border-t border-gray-100 dark:border-zinc-800 pt-4">
                 <div className="grid grid-cols-3">
                     <div>
-                        <div className="flex items-center gap-1 text-gray-400 text-xs mb-1">
+                        <div className="flex items-center gap-1 text-gray-400 dark:text-gray-500 text-xs mb-1">
                             <PlayIcon />
                             <span>Daily</span>
                         </div>
-                        <p className="font-bold text-gray-900">{formatListens(songCard.dailyListens)}</p>
+                        <p className="font-bold text-gray-900 dark:text-white">{formatListens(songCard.dailyListens)}</p>
                     </div>
 
                     <div>
-                        <div className="flex items-center gap-1 text-gray-400 text-xs mb-1">
+                        <div className="flex items-center gap-1 text-gray-400 dark:text-gray-500 text-xs mb-1">
                             <PeopleIcon />
                             <span>Total</span>
                         </div>
-                        <p className="font-bold text-gray-900">{formatListens(songCard.totalListens)}</p>
+                        <p className="font-bold text-gray-900 dark:text-white">{formatListens(songCard.totalListens)}</p>
                     </div>
 
                     <div>
-                        <p className="text-gray-400 text-xs mb-1">Released</p>
-                        <p className="font-bold text-gray-900">{songCard.song.releaseDate ?? '—'}</p>
+                        <p className="text-gray-400 dark:text-gray-500 text-xs mb-1">Released</p>
+                        <p className="font-bold text-gray-900 dark:text-white">{songCard.song.releaseDate ?? '—'}</p>
                     </div>
                 </div>
             </div>

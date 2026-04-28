@@ -57,19 +57,19 @@ function Sparkline({ data }: { data: TrendDataPoint[] }) {
     const lastDate = fmtDate(data[data.length - 1].date);
 
     return (
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full">
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full" overflow="visible">
             {/* Gridlines */}
             <line x1={padL} y1={padT} x2={padL} y2={padT + chartH} stroke="#e5e7eb" strokeWidth="1" />
             <line x1={padL} y1={padT + chartH} x2={padL + chartW} y2={padT + chartH} stroke="#e5e7eb" strokeWidth="1" />
             <line x1={padL} y1={padT} x2={padL + chartW} y2={padT} stroke="#f3f4f6" strokeWidth="1" strokeDasharray="3 3" />
 
             {/* Y-axis labels */}
-            <text x={padL - 4} y={padT + 4} textAnchor="end" fontSize="9" fill="#9ca3af">{fmtY(maxV)}</text>
-            <text x={padL - 4} y={padT + chartH} textAnchor="end" fontSize="9" fill="#9ca3af">{fmtY(minV)}</text>
+            <text x={padL - 6} y={padT + 4} textAnchor="end" fontSize="10" fontWeight="600" fill="#6b7280">{fmtY(maxV)}</text>
+            <text x={padL - 6} y={padT + chartH} textAnchor="end" fontSize="10" fontWeight="600" fill="#6b7280">{fmtY(minV)}</text>
 
             {/* X-axis labels */}
-            <text x={padL} y={H - 4} textAnchor="middle" fontSize="9" fill="#9ca3af">{firstDate}</text>
-            <text x={padL + chartW} y={H - 4} textAnchor="middle" fontSize="9" fill="#9ca3af">{lastDate}</text>
+            <text x={padL} y={H - 2} textAnchor="start" fontSize="10" fontWeight="600" fill="#6b7280">{firstDate}</text>
+            <text x={padL + chartW} y={H - 2} textAnchor="end" fontSize="10" fontWeight="600" fill="#6b7280">{lastDate}</text>
 
             {/* Line */}
             <polyline
@@ -92,20 +92,20 @@ function GrowthTile({ label, value }: { label: string; value: string }) {
     const isPositive = value.startsWith("+");
     const isNegative = value.startsWith("-");
     return (
-        <div className="bg-gray-50 rounded-xl p-3 text-center">
-            <p className={`font-bold text-lg ${isPositive ? "text-green-500" : isNegative ? "text-red-400" : "text-gray-400"}`}>
+        <div className="bg-gray-50 dark:bg-zinc-800 rounded-xl p-3 text-center">
+            <p className={`font-bold text-lg ${isPositive ? "text-green-500" : isNegative ? "text-red-400" : "text-gray-400 dark:text-gray-500"}`}>
                 {value}
             </p>
-            <p className="text-gray-400 text-xs mt-0.5">{label}</p>
+            <p className="text-gray-400 dark:text-gray-500 text-xs mt-0.5">{label}</p>
         </div>
     );
 }
 
 function StatTile({ label, value }: { label: string; value: string }) {
     return (
-        <div className="bg-gray-50 rounded-xl p-3 text-center">
-            <p className="font-bold text-lg text-gray-900">{value}</p>
-            <p className="text-gray-400 text-xs mt-0.5">{label}</p>
+        <div className="bg-gray-50 dark:bg-zinc-800 rounded-xl p-3 text-center">
+            <p className="font-bold text-lg text-gray-900 dark:text-white">{value}</p>
+            <p className="text-gray-400 dark:text-gray-500 text-xs mt-0.5">{label}</p>
         </div>
     );
 }
@@ -128,7 +128,7 @@ export default function TrackModal({ songCard, onClose }: { songCard: SongCard; 
             onClick={onClose}
         >
             <div
-                className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+                className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
                 onClick={e => e.stopPropagation()}
             >
                 {/* Header */}
@@ -151,13 +151,13 @@ export default function TrackModal({ songCard, onClose }: { songCard: SongCard; 
                     </div>
 
                     <div className="flex-1 min-w-0">
-                        <h2 className="font-bold text-gray-900 text-xl leading-tight">{songCard.song.name}</h2>
-                        <p className="text-gray-500 text-sm mt-0.5">{songCard.song.artist}</p>
+                        <h2 className="font-bold text-gray-900 dark:text-white text-xl leading-tight">{songCard.song.name}</h2>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{songCard.song.artist}</p>
                     </div>
 
                     <button
                         onClick={onClose}
-                        className="text-gray-400 hover:text-gray-600 text-xl font-bold flex-shrink-0 leading-none"
+                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl font-bold flex-shrink-0 leading-none"
                         aria-label="Close"
                     >
                         ✕
@@ -169,21 +169,21 @@ export default function TrackModal({ songCard, onClose }: { songCard: SongCard; 
                         <div className="space-y-3">
                             <div className="grid grid-cols-2 gap-2">
                                 {[...Array(4)].map((_, i) => (
-                                    <div key={i} className="bg-gray-100 rounded-xl h-16 animate-pulse" />
+                                    <div key={i} className="bg-gray-100 dark:bg-zinc-800 rounded-xl h-16 animate-pulse" />
                                 ))}
                             </div>
                             <div className="grid grid-cols-3 gap-2">
                                 {[...Array(3)].map((_, i) => (
-                                    <div key={i} className="bg-gray-100 rounded-xl h-16 animate-pulse" />
+                                    <div key={i} className="bg-gray-100 dark:bg-zinc-800 rounded-xl h-16 animate-pulse" />
                                 ))}
                             </div>
-                            <div className="bg-gray-100 rounded-xl h-20 animate-pulse" />
+                            <div className="bg-gray-100 dark:bg-zinc-800 rounded-xl h-20 animate-pulse" />
                         </div>
                     ) : (
                         <>
                             {/* Growth metrics */}
                             <div>
-                                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Growth</p>
+                                <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">Growth</p>
                                 <div className="grid grid-cols-2 gap-2">
                                     <GrowthTile label="Daily" value={formatGrowth(analytics?.avgDailyGrowthPercent ?? null)} />
                                     <GrowthTile label="Weekly" value={formatGrowth(analytics?.weeklyGrowthPercent ?? null)} />
@@ -194,7 +194,7 @@ export default function TrackModal({ songCard, onClose }: { songCard: SongCard; 
 
                             {/* Stream stats */}
                             <div>
-                                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Streams</p>
+                                <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">Streams</p>
                                 <div className="grid grid-cols-3 gap-2">
                                     <StatTile label="Total" value={formatNumber(analytics?.totalListens ?? 0)} />
                                     <StatTile label="Daily change" value={formatNumber(analytics?.dailyListens ?? 0)} />
@@ -204,8 +204,8 @@ export default function TrackModal({ songCard, onClose }: { songCard: SongCard; 
 
                             {/* 30-day sparkline */}
                             <div>
-                                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">30-Day Trend</p>
-                                <div className="bg-gray-50 rounded-xl p-3">
+                                <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-2">30-Day Trend</p>
+                                <div className="bg-gray-50 dark:bg-zinc-800 rounded-xl p-3">
                                     <Sparkline data={analytics?.thirtyDayTrend ?? []} />
                                 </div>
                             </div>

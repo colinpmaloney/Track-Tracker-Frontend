@@ -40,12 +40,12 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-500 mb-4">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-6">
+            <div className="w-10 h-10 bg-green-50 dark:bg-green-900/30 rounded-xl flex items-center justify-center text-green-500 mb-4">
                 {icon}
             </div>
-            <h3 className="font-bold text-gray-900 text-lg mb-2">{title}</h3>
-            <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
+            <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">{title}</h3>
+            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{description}</p>
         </div>
     );
 }
@@ -60,8 +60,8 @@ function AudienceCard({ label, description }: AudienceCardProps) {
         <div className="flex items-start gap-3">
             <div className="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" />
             <div>
-                <p className="font-bold text-gray-900">{label}</p>
-                <p className="text-gray-500 text-sm mt-0.5">{description}</p>
+                <p className="font-bold text-gray-900 dark:text-white">{label}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{description}</p>
             </div>
         </div>
     );
@@ -73,7 +73,7 @@ export default function About() {
 
             {/* Hero */}
             <section className="mb-12">
-                <div className="inline-flex items-center gap-2 bg-green-50 text-green-600 text-sm font-bold px-3 py-1.5 rounded-full mb-4">
+                <div className="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-sm font-bold px-3 py-1.5 rounded-full mb-4">
                     <TrendingUpIcon />
                     <span>Music Analytics</span>
                 </div>
@@ -81,7 +81,7 @@ export default function About() {
                     The pulse of music,<br />
                     <span className="text-green-500">tracked in real time.</span>
                 </h1>
-                <p className="text-gray-500 text-lg max-w-2xl leading-relaxed">
+                <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl leading-relaxed">
                     Track Tracker surfaces the songs people are actually listening to — with the numbers to back it up.
                     Daily plays, total listens, weekly growth rates, and release info, all in one place.
                 </p>
@@ -90,7 +90,7 @@ export default function About() {
             {/* What we track */}
             <section className="mb-12">
                 <h2 className="text-foreground mb-2">What we track</h2>
-                <p className="text-gray-500 mb-6">Every card on Track Tracker gives you four data points that matter.</p>
+                <p className="text-gray-500 dark:text-gray-400 mb-6">Every card on Track Tracker gives you four data points that matter.</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FeatureCard
                         icon={<TrendingUpIcon />}
@@ -117,9 +117,9 @@ export default function About() {
 
             {/* Who it's for */}
             <section className="mb-12">
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
-                    <h2 className="text-gray-900 mb-2">Who it's for</h2>
-                    <p className="text-gray-500 mb-6">Track Tracker is useful any time you want data, not just opinions.</p>
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-8">
+                    <h2 className="text-gray-900 dark:text-white mb-2">Who it's for</h2>
+                    <p className="text-gray-500 dark:text-gray-400 mb-6">Track Tracker is useful any time you want data, not just opinions.</p>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                         <AudienceCard
                             label="Music fans"

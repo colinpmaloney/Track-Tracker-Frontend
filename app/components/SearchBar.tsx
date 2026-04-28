@@ -55,7 +55,7 @@ export default function SearchBar({ initialValue = "" }: { initialValue?: string
                 type="text"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                placeholder="Search tracks or artists..."
+                placeholder="Search all tracks or artists..."
                 className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm text-sm"
             />
         </div>

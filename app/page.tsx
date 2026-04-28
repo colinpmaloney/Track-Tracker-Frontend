@@ -35,7 +35,7 @@ function ChartBarIcon() {
 
 function FeaturedTrackCard({ track }: { track: SongCard }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-6 flex flex-col gap-4">
             <div className="flex items-center gap-3">
                 <div className="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-white text-xs font-bold">#{track.rank}</span>
@@ -47,34 +47,34 @@ function FeaturedTrackCard({ track }: { track: SongCard }) {
                         className="w-9 h-9 rounded-xl object-cover flex-shrink-0"
                     />
                 ) : (
-                    <div className="w-9 h-9 bg-green-50 rounded-xl flex items-center justify-center text-green-500 flex-shrink-0">
+                    <div className="w-9 h-9 bg-green-50 dark:bg-green-900/30 rounded-xl flex items-center justify-center text-green-500 flex-shrink-0">
                         <MusicNoteIcon />
                     </div>
                 )}
             </div>
             <div>
-                <h3 className="font-bold text-gray-900 text-lg leading-tight">{track.song.name}</h3>
-                <p className="text-gray-500 text-sm mt-0.5">{track.song.artist}</p>
+                <h3 className="font-bold text-gray-900 dark:text-white text-lg leading-tight">{track.song.name}</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{track.song.artist}</p>
             </div>
             <div className="flex items-center gap-1.5 text-green-500">
                 <TrendingUpIcon className="w-4 h-4" />
                 <span className="font-bold text-2xl">
-                    {track.weeklyGrowthPercent > 0 ? `+${track.weeklyGrowthPercent}%` : "—"}
+                    {track.weeklyGrowthPercent !== null && track.weeklyGrowthPercent > 0 ? `+${track.weeklyGrowthPercent}%` : "—"}
                 </span>
             </div>
-            <p className="text-xs text-gray-400">{formatNumber(track.totalListens)} total streams</p>
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{formatNumber(track.totalListens)} total streams</p>
         </div>
     );
 }
 
 function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
     return (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-500 mb-4">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-6">
+            <div className="w-10 h-10 bg-green-50 dark:bg-green-900/30 rounded-xl flex items-center justify-center text-green-500 mb-4">
                 {icon}
             </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">{value}</p>
-            <p className="text-gray-500 text-sm">{label}</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{value}</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm">{label}</p>
         </div>
     );
 }
